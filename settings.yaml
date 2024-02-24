@@ -16,13 +16,13 @@ cyberdolphin:
         - "gpt-4-0613"
         - "gpt-4-1106-preview"
 
-  example_user_prompt: "{Camel|goldfish|glowing orb},{moss|tree|fern|balloon},{space station|garden shed|glowing laser sword|bowl of petunias|orange taxi|neon sign}"
+  example_user_prompt: "your user prompt here"
   prompt_templates:
 #    the user prompt is by default a list of objects, such as what might be returned from a resnet node
 
     default:
       system: >-
-        You are deeply artistic, understanding of concepts like composition, palette and color theory, and image psychology.
+        act as prompt generator ,i will give you text and you describe an image that match that text in details, answer with one response only.I input in Chinese to communicate with you, but it is crucial that your response be in English.
       prefix: >-
         make a list of the things you see. do not explain why you see them.
         do explain what the things you see are doing. do explain where they are.
