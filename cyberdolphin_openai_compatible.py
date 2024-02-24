@@ -2,6 +2,7 @@ from .openai_client import OpenAiClient
 from .settings import load_settings
 
 
+
 class CyberdolphinOpenAICompatible:
 
     @classmethod
