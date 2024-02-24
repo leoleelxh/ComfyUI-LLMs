@@ -1,0 +1,60 @@
+cyberdolphin:
+  openai_compatible:
+    default:
+      api_base: "http://ip:3200/v1"
+      organisation: "NONE"
+      api_key: "your_key"
+      model: 
+        - "chatglm_pro"
+        - "ERNIE-Bot-4"
+        - "qwen-turbo-internet"
+        - "gpt-3.5-turbo"
+        - "gpt-35-turbo"
+        - "gpt-3.5-turbo-16k"
+        - "gpt-3.5-turbo-16k-0613"
+        - "gpt-4-0613"
+        - "gpt-4-1106-preview"
+
+  example_user_prompt: "{Camel|goldfish|glowing orb},{moss|tree|fern|balloon},{space station|garden shed|glowing laser sword|bowl of petunias|orange taxi|neon sign}"
+  prompt_templates:
+#    the user prompt is by default a list of objects, such as what might be returned from a resnet node
+
+    default:
+      system: >-
+        You are deeply artistic, understanding of concepts like composition, palette and color theory, and image psychology.
+      prefix: >-
+        make a list of the things you see. do not explain why you see them.
+        do explain what the things you see are doing. do explain where they are.
+        do not explain their purpose,
+        do not say anything other than the list of things you see.
+        do use purely objective language: do not say "I see a..." but instead say "there is a..."
+        SO:
+        When I provide the list "
+      suffix: >-
+        ",
+        what is this scene -
+        do not simply repeat the list, do not say "when I provide the list" or similar just project the description.
+        describe what you see in your mind.
+    
+
+    prompt_two_example:
+      system: >-
+        You are deeply artistic, understanding of concepts like composition, palette and color theory, and image psychology.
+      prefix: >-
+        describe a scene using the following list of objects: "
+      suffix: >-
+        " - there are many things
+        and you must list them using a maximum of 25 words. be clear and specific.
+        use present tense, objective language: do not say, "I see ..." rather say, "there is ..."
+    
+
+    gpt-3.5-turbo:
+      system: >-
+        You are deeply artistic, understanding of concepts like composition, palette and color theory, and image psychology.
+      prefix: >-
+        describe a scene using the following list of objects: "
+      suffix: >-
+        " - there are many things
+        and you must list them using a maximum of 25 words. be clear and specific.
+        use present tense, objective language: do not say, "I see ..." rather say, "there is ..."
+    
