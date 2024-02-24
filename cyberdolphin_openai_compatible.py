@@ -30,7 +30,7 @@ class CyberdolphinOpenAICompatible:
                           {"default": "gpt-3.5-turbo"}),
                 "system_prompt": ("STRING",
                                   {
-                                      "default": default_system_prompt,
+                                      "default": "your system prompt here ",
                                       "multiline": True, "dynamicPrompts": False
                                   }),
 
