@@ -5,6 +5,7 @@ A minimalist node that calls LLMs, combined with one API, can call all language 
 
 ![comfyuillms.png](examples/screenshot01.png)
 
+![comfyuillms.png](examples/screenshot02.png)
 
 ## Installation
 
