@@ -31,7 +31,7 @@ class CyberdolphinOpenAICompatible:
                 "system_prompt": ("STRING",
                                   {
                                       "default": ("act as prompt generator, I will give you text and you describe an image that matches that text in details, "
-                                                  "answer with one response only. I input in Chinese to communicate with you, but it is crucial that your response be in English."),
+                                                  "answer with one response only.if I input in Chinese to communicate with you, but it is crucial that your response be in English."),
                                       "multiline": True, "dynamicPrompts": False
                                   }),
 
