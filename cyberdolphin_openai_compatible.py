@@ -9,7 +9,7 @@ class CyberdolphinOpenAICompatible:
         all_settings = load_settings()
         # prompt_templates = all_settings['prompt_templates']
         default_user_prompt = all_settings['example_user_prompt']
-        default_system_prompt = all_settings['system']
+        # default_system_prompt = all_settings['system']
         # default_system_prompt = all_settings['example_user_prompt']
         available_apis = [a for a in all_settings['openai_compatible']]
 
@@ -30,7 +30,8 @@ class CyberdolphinOpenAICompatible:
                           {"default": "gpt-3.5-turbo"}),
                 "system_prompt": ("STRING",
                                   {
-                                      "default": "your system prompt here ",
+                                      "default": ("act as prompt generator, I will give you text and you describe an image that matches that text in details, "
+                                                  "answer with one response only. I input in Chinese to communicate with you, but it is crucial that your response be in English."),
                                       "multiline": True, "dynamicPrompts": False
                                   }),
 
