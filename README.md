@@ -1,4 +1,4 @@
-# cyberdolphin
+# ComfyUI-LLMs
 
 The dolphin is wiring up OpenAI and local LLMs. OpenAI v1.2.3 is required.
 

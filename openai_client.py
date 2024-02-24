@@ -3,7 +3,7 @@ from typing import Literal, TypeAlias
 import PIL.Image
 from openai import OpenAI
 
-from custom_nodes.cyberdolphin.settings import api_settings
+from custom_nodes.ComfyUI-LLMs.settings import api_settings
 
 DALL_E_SIZE: TypeAlias = Literal["256x256", "512x512", "1024x1024", "1792x1024", "1024x1792"]
 
