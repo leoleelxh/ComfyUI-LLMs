@@ -2,7 +2,6 @@ from .openai_client import OpenAiClient
 from .settings import load_settings
 
 
-
 class CyberdolphinOpenAICompatible:
 
     @classmethod
@@ -10,6 +9,7 @@ class CyberdolphinOpenAICompatible:
         all_settings = load_settings()
         # prompt_templates = all_settings['prompt_templates']
         default_user_prompt = all_settings['example_user_prompt']
+        default_system_prompt = all_settings['system']
         # default_system_prompt = all_settings['example_user_prompt']
         available_apis = [a for a in all_settings['openai_compatible']]
 
@@ -30,7 +30,7 @@ class CyberdolphinOpenAICompatible:
                           {"default": "gpt-3.5-turbo"}),
                 "system_prompt": ("STRING",
                                   {
-                                      "default": "You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible.",
+                                      "default": default_system_prompt,
                                       "multiline": True, "dynamicPrompts": False
                                   }),
 
