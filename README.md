@@ -7,6 +7,10 @@ A minimalist node that calls LLMs, combined with one API, can call all language 
 
 ![comfyuillms.png](examples/screenshot02.png)
 
+## note
+To reduce the usage of tokens, by default, the seed remains fixed after each generation. Without changing the prompt words, clicking on generate will not trigger a response.
+If you want to generate a new response, you need to change the prompt words.
+
 ## Installation
 
 Git clone this repo into the `custom_nodes` folder.
