@@ -3,9 +3,12 @@ from typing import Literal, TypeAlias
 import PIL.Image
 from openai import OpenAI
 
-from custom_nodes.ComfyUI-LLMs.settings import api_settings
+# from custom_nodes.ComfyUI-LLMs.settings import api_settings
+from .comfyui_llms_wrapper import api_settings
 
-DALL_E_SIZE: TypeAlias = Literal["256x256", "512x512", "1024x1024", "1792x1024", "1024x1792"]
+
+DALL_E_SIZE: TypeAlias = Literal["256x256",
+                                 "512x512", "1024x1024", "1792x1024", "1024x1792"]
 
 
 def validation(temperature: float, top_p: float = None) -> list[str]:
@@ -68,7 +71,8 @@ class OpenAiClient:
         errors = validation(temperature, top_p)
         if errors:
             error_report = "\n".join([e for e in errors])
-            raise RuntimeError(f"There were problems with the parameters:\n{error_report}")
+            raise RuntimeError(
+                f"There were problems with the parameters:\n{error_report}")
         the_client = OpenAiClient.create_client(key)
         response = the_client.chat.completions.create(
             model=model,
