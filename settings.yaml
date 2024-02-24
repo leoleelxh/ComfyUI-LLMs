@@ -5,6 +5,7 @@ cyberdolphin:
       organisation: "NONE"
       api_key: "your_key"
       model: 
+        - "your_model_here"
         - "chatglm_pro"
         - "ERNIE-Bot-4"
         - "qwen-turbo-internet"
