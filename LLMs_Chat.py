@@ -40,7 +40,7 @@ class CyberdolphinOpenAICompatible:
                     "default": default_user_prompt
                 }),
                 "temperature": ("FLOAT", {
-                    "default": 1.0, "min": 0.0, "max": 2.0, "step": 0.01,
+                    "default": 0.99, "min": 0.0, "max": 2.0, "step": 0.01,
                 }),
             },
             "optional": {

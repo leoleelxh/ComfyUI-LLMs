@@ -1,20 +1,35 @@
 cyberdolphin:
   openai_compatible:
     default:
-      api_base: "http://ip:3200/v1"
+      api_base: "http://url:3200/v1"
       organisation: "NONE"
-      api_key: "your_key"
+      api_key: "sk-xxxxxxx"
       model: 
         - "your_model_here"
+        - "glm-4"
         - "chatglm_pro"
         - "ERNIE-Bot-4"
         - "qwen-turbo-internet"
         - "gpt-3.5-turbo"
-        - "gpt-35-turbo"
         - "gpt-3.5-turbo-16k"
         - "gpt-3.5-turbo-16k-0613"
         - "gpt-4-0613"
         - "gpt-4-1106-preview"
+      vison_key_ali: "sk-xxxxx"  
+      vision_model_ali: 
+        - "your_model_here"
+        - "qwen-vl-plus"
+        - "qwen-vl-max"
+      vison_key_gemini: "AIxxxxxx"
+      vision_model_gemini: 
+        - "your_model_here"
+        - "gemini-pro-vision"
+      vison_key_GLM4: "xxxxxx"
+      vision_model_GLM4: 
+        - "your_model_here"
+        - "glm-4v"
+        - "glm-4"
+
 
   example_user_prompt: "your user prompt here"
   prompt_templates:

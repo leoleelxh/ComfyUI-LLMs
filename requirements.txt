@@ -2,3 +2,6 @@ openai ~= 1.2.3
 gradio_client
 numpy
 pillow
+google-generativeai
+dashscope
+zhipuai
