@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-llms"
+description = "A minimalist node that calls LLMs, combined with one API, can call all language models, including local models."
+version = "1.0.0"
+license = "LICENSE"
+dependencies = ["openai ~= 1.2.3", "gradio_client", "numpy", "pillow", "google-generativeai", "dashscope", "zhipuai"]
+
+[project.urls]
+Repository = "https://github.com/leoleelxh/ComfyUI-LLMs"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI-LLMs"
+Icon = ""
