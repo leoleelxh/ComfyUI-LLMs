@@ -36,7 +36,10 @@ class LLMs_Vision_Unified:
                 "image": ("IMAGE",),
                 "model_type": (model_types,),
                 "model": (all_models,),  # 所有可用的子模型
-                "prompt": ("STRING", {"multiline": True, "default": "描述这张图片"}),
+                "prompt": ("STRING", {
+                    "multiline": True, 
+                    "default": "Please provide a detailed description of this image, including:\n- The main subject(s) and their appearance\n- The setting and environment\n- Colors, lighting, and visual elements\n- Any notable details or unique features\n- The overall mood and atmosphere\n\nDescribe as if you are explaining the image to someone who cannot see it."
+                }),
             }
         }
     
