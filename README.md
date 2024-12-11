@@ -2,6 +2,8 @@
 
 A ComfyUI extension that supports various Large Language Models (LLMs) and Vision Language Models (VLMs), providing a unified interface and simple configuration.
 
+![Node Preview](examples/screenshot06.png)
+
 [English](#english) | [中文](#chinese)
 
 <a name="english"></a>
@@ -155,6 +157,8 @@ MIT License
 
 ComfyUI的LLM扩展，支持多种大语言模型和视觉语言模型，提供统一的接口和简单的配置方式。
 
+![节点预览](examples/screenshot06.png)
+
 ## ✨ 功能特点
 
 - 🤖 支持多种LLM模型的对话功能
@@ -275,7 +279,7 @@ chatllmleoleexh:
 
 ### 图像理解功能
 1. 在节点列表中找到 `🎯 LLMs Vision | 图像理解`
-2. 选择要使用的视觉模型
+2. 选择���使用的视觉模型
 3. 连接图像输入
 4. 运行获取图像描述
 
