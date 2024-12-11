@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 环境文件
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+
+# 本地配置文件
+settings.yaml
+*.local.yaml
+*.local.yml
+
+# 日志
+*.log
+
+# 临时文件
+*.tmp
+temp/
+.DS_Store

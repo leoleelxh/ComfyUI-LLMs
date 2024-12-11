@@ -1,0 +1,83 @@
+chatllmleoleexh:
+  openai_compatible:
+    default:
+      api_base: "http://url:3200/v1"
+      organisation: "NONE"
+      api_key: "sk-xxxxxxx"
+      model: 
+        - "your_model_here"
+        - "glm-4"
+        - "chatglm_pro"
+        - "ERNIE-Bot-4"
+        - "qwen-turbo-internet"
+        - "gpt-3.5-turbo"
+        - "gpt-3.5-turbo-16k"
+        - "gpt-3.5-turbo-16k-0613"
+        - "gpt-4-0613"
+        - "gpt-4-1106-preview"
+
+  # 统一的视觉模型配置
+  vision_models:
+    openai:
+      api_key: "sk-xxxxxxx"
+      api_base: "http://url:3200/v1"
+      model_list:
+        - "gpt-4-vision-preview"
+    
+    glm4:
+      api_key: "xxxxxx"
+      model_list: 
+        - "glm-4v"
+        - "glm-4"
+    
+    ali:
+      api_key: "sk-xxxxx"
+      model_list:
+        - "qwen-vl-plus"
+        - "qwen-vl-max"
+    
+    gemini:
+      api_key: "AIxxxxxx"
+      model_list:
+        - "gemini-pro-vision"
+
+  # Prompt模板配置
+  example_user_prompt: "your user prompt here"
+  prompt_templates:
+    default:
+      system: >-
+        act as prompt generator ,i will give you text and you describe an image that match that text in details, answer with one response only.I input in Chinese to communicate with you, but it is crucial that your response be in English.
+      prefix: >-
+        make a list of the things you see. do not explain why you see them.
+        do explain what the things you see are doing. do explain where they are.
+        do not explain their purpose,
+        do not say anything other than the list of things you see.
+        do use purely objective language: do not say "I see a..." but instead say "there is a..."
+        SO:
+        When I provide the list "
+      suffix: >-
+        ",
+        what is this scene -
+        do not simply repeat the list, do not say "when I provide the list" or similar just project the description.
+        describe what you see in your mind.
+    
+    prompt_two_example:
+      system: >-
+        You are deeply artistic, understanding of concepts like composition, palette and color theory, and image psychology.
+      prefix: >-
+        describe a scene using the following list of objects: "
+      suffix: >-
+        " - there are many things
+        and you must list them using a maximum of 25 words. be clear and specific.
+        use present tense, objective language: do not say, "I see ..." rather say, "there is ..."
+    
+    gpt-3.5-turbo:
+      system: >-
+        You are deeply artistic, understanding of concepts like composition, palette and color theory, and image psychology.
+      prefix: >-
+        describe a scene using the following list of objects: "
+      suffix: >-
+        " - there are many things
+        and you must list them using a maximum of 25 words. be clear and specific.
+        use present tense, objective language: do not say, "I see ..." rather say, "there is ..."
+    

@@ -1,211 +1,137 @@
 from zhipuai import ZhipuAI
 import os
 import base64
-import json
+import numpy as np
+from PIL import Image
 from io import BytesIO
-from .settings import load_settings
-from PIL import Image,  ImageChops
-from datetime import datetime
-import tempfile
-import random
-import platform
+from .settings import load_settings, get_vision_settings
 
-p = os.path.dirname(os.path.realpath(__file__))
-# get path
-# 获取项目地址
-
-
-def get_ZhipuAI_api_key():
+def process_glm4(encoded_image, prompt, config):
+    """处理图像并返回GLM4的响应
+    
+    Args:
+        encoded_image: base64编码的图像
+        prompt: 提示词
+        config: 模型配置信息
+    
+    Returns:
+        str: 模型的响应文本
+    """
     try:
-        all_settings = load_settings()
-        api_key = all_settings['openai_compatible']['default']['vison_key_GLM4']
-    except:
-        print("出错啦 Error: API key is required")
-        return ""
-    return api_key
+        # 初始化客户端
+        client = ZhipuAI(api_key=config['api_key'])
+        
+        # 准备消息
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": prompt
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/png;base64,{encoded_image}"
+                        }
+                    }
+                ]
+            }
+        ]
+        
+        # 调用API
+        response = client.chat.completions.create(
+            model=config['model_list'][0],  # 使用配置中的第一个模型
+            messages=messages,
+            max_tokens=1000,
+            temperature=0.8
+        )
+        
+        # 返回结果
+        return response.choices[0].message.content
+        
+    except Exception as e:
+        return f"GLM4处理出错: {str(e)}"
 
 
 class LLMs_Vison_GLM4:
-
-    # def __init__(self, api_key=None):
-
-    #     all_settings = load_settings()
-    #     self.api_key = all_settings['openai_compatible']['default']['vison_key_GLM4']
-    #     if self.api_key is not None:
-    #         api_key = self.api_key
-    #     print("glm4_key:", api_key)
-    # 配置参数
-
+    """已废弃的GLM4视觉节点类，请使用新的统一视觉节点"""
+    
     @classmethod
     def INPUT_TYPES(cls):
-        all_settings = load_settings()
-        default_model = all_settings['openai_compatible']['default']['vision_model_GLM4']
-
         return {
             "required": {
-                "prompt": ("STRING", {"default": "describe this image", "multiline": True}),
-                "image_url": ("STRING", {"default": "https://www.mihoyo.com/_nuxt/img/char3.629df8e.png"}),
-                "model_name": (default_model,),  # 选用什么模型
-                "api_key":  ("STRING", {"default": get_ZhipuAI_api_key()})
-            },
-            # "optional": {
-            #     "image": ("IMAGE",),
-            # }
+                "image": ("IMAGE",),
+                "prompt": ("STRING", {"multiline": True, "default": "描述这张图片"}),
+            }
         }
-
-    # 配置
+    
     RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("GETPrompt",)
-    FUNCTION = "generate_prompt"
-    CATEGORY = "🐵 ComfyUI-LLMs"
+    FUNCTION = "process"
+    CATEGORY = "LLMs"
 
-    # def tensor_to_image(self, tensor):
-    #     # 确保张量是在CPU上
-    #     tensor = tensor.cpu()
-
-    #     # 将张量数据转换为0-255范围并转换为整数
-    #     # 这里假设张量已经是H x W x C格式
-    #     image_np = tensor.squeeze().mul(255).clamp(0, 255).byte().numpy()
-
-    #     # 创建PIL图像
-    #     image = Image.fromarray(image_np, mode='RGB')
-    #     return image
-
-    def generate_prompt(self, api_key, image_url, prompt, model_name):
-
-        self.api_key = api_key
-
-        if image_url == None:
-            raise ValueError("needs a image")
-        # else:
-        #     # 转换图像
-        #     pil_image = self.tensor_to_image(image)
-
-        #     # 生成临时文件路径
-        #     temp_directory = tempfile.gettempdir()
-        #     unique_suffix = "_temp_" + \
-        #         ''.join(random.choice("abcdefghijklmnopqrstuvwxyz")
-        #                 for _ in range(5))
-        #     filename = f"image{unique_suffix}.png"
-        #     temp_image_path = os.path.join(temp_directory, filename)
-        #     # temp_image_url = f"file://{temp_image_path}"
-
-        #     # 根据操作系统选择正确的文件URL格式
-        #     if platform.system() == 'Windows':
-        #         temp_image_url = f"file://{temp_image_path}"
-        #     else:
-        #         temp_image_url = f"file:///{temp_image_path}"
-
-        #     temp_image_url = temp_image_url.replace('\\', '/')
-
-        #     # 保存图像到临时路径
-        #     pil_image.save(temp_image_path)
-
-        #     messages = [
-        #         {
-        #             "role": "user",
-        #             "content": [
-        #                 {"image": temp_image_url},
-        #                 {"text": prompt}
-        #             ]
-        #         }
-        #     ]
-        #     print("temp_image_url:", temp_image_url)
-        #     print("prompt:", prompt)
-
-        if prompt is None:
-            raise ValueError("Prompt is required")
-
-        # 判断是否正常传入image和prompt，如果没有的话马上中断
-        # Determine if image and prompt are being passed in properly, if not break immediately
-
-        client = ZhipuAI(api_key=api_key)  # 填写APIKey Fill in APIKey
-        response = client.chat.completions.create(
-            model=model_name,  # 选择需要调用的模型名称  Select model
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": prompt
-                        },
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": image_url
-                            }
-                        }
-                    ]
-                }
-            ]
-        )
-        response = str(response.choices[0].message.content)
-        return (response,)  # 传出一定要是列表，这个逗号不能省略
+    def process(self, image, prompt):
+        config = get_vision_settings("glm4")
+        if not config:
+            return ("GLM4配置不存在",)
+            
+        # 编码图像
+        if isinstance(image, np.ndarray):
+            image = Image.fromarray(np.clip(image * 255, 0, 255).astype(np.uint8))
+        
+        buffered = BytesIO()
+        image.save(buffered, format="PNG")
+        encoded_image = base64.b64encode(buffered.getvalue()).decode()
+        
+        return (process_glm4(encoded_image, prompt, config),)
 
 
 class LLMs_Chat_GLM4_Only:
+    """GLM4专用聊天节点"""
 
-    # def __init__(self, api_key):
-    #     all_settings = load_settings()
-    #     self.api_key = all_settings['openai_compatible']['default']['vison_key_glm4']
-    #     if self.api_key is not None:
-    #         api_key = self.api_key
-    #     print("glm4_key:", api_key)
-
-    def __init__(self):
-        pass
-
-    # 配置参数
     @classmethod
     def INPUT_TYPES(cls):
-
-        all_settings = load_settings()
-        default_model = all_settings['openai_compatible']['default']['vision_model_GLM4']
+        config = get_vision_settings("glm4")
+        if not config:
+            model_list = ["glm-4"]
+        else:
+            model_list = config.get("model_list", ["glm-4"])
 
         return {
             "required": {
-                "prompt": ("STRING", {"default": "你好，你是谁呀", "multiline": True}),
-                "model_name": (default_model,),  # 选用什么模型
-                "api_key":  ("STRING", {  # 输入gpt4v的KEY，Add api_key as an input
-                    # get OpenAI API Key
-                    "multiline": False,
-                    "default": get_ZhipuAI_api_key()
-
+                "prompt": ("STRING", {"default": "你好，你是谁？", "multiline": True}),
+                "model": (model_list,),
+                "temperature": ("FLOAT", {
+                    "default": 0.8,
+                    "min": 0.0,
+                    "max": 2.0,
+                    "step": 0.1
                 }),
-
             }
         }
 
-    # 配置
-    # config
     RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("Text",)
-    FUNCTION = "generate_prompt"
-    CATEGORY = "🐵 ComfyUI-LLMs"
+    FUNCTION = "chat"
+    CATEGORY = "LLMs"
 
-    def generate_prompt(self, api_key, prompt, model_name):
+    def chat(self, prompt, model, temperature=0.8):
+        try:
+            config = get_vision_settings("glm4")
+            if not config:
+                return ("GLM4配置不存在",)
 
-        if api_key:
-            self.api_key = api_key
-        if not self.api_key:
-            raise ValueError("API key is required")
-
-        if prompt is None:
-            raise ValueError("Prompt is required")
-        # 判断是否正常传入image和prompt，如果没有的话马上中断
-        # Determine if image and prompt are being passed in properly, if not break immediately
-
-        client = ZhipuAI(api_key=api_key)           # 填写APIKey Fill in APIKey
-        response = client.chat.completions.create(
-            model=model_name,                           # 选择需要调用的模型名称  Select model
-            messages=[
-                {"role": "user", "content": "你好"},
-                {"role": "assistant", "content": "我是人工智能助手"},
-                {"role": "user", "content": "你叫什么名字"},
-                {"role": "assistant", "content": "我叫chatGLM"},
-                {"role": "user", "content": prompt}
-            ],
-        )
-        response = str(response.choices[0].message.content)
-        return (response,)  # 传出一定要是列表，这个逗号不能省略
+            client = ZhipuAI(api_key=config['api_key'])
+            
+            response = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=temperature
+            )
+            
+            return (response.choices[0].message.content,)
+            
+        except Exception as e:
+            return (f"GLM4聊天出错: {str(e)}",)

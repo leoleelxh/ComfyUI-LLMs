@@ -1,4 +1,6 @@
-import importlib
+from .settings import get_chat_settings
 
-settings = importlib.import_module("custom_nodes.ComfyUI-LLMs.settings")
-api_settings = settings.api_settings
+def api_settings(section: str = "default"):
+    """保持向后兼容的API设置获取函数"""
+    settings = get_chat_settings(section)
+    return settings['api_base'], settings['api_key'], settings['organisation']

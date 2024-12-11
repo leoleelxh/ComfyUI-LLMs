@@ -7,6 +7,8 @@ import google.generativeai as genai
 from io import BytesIO
 from PIL import Image
 from .settings import load_settings
+import PIL.Image
+import base64
 
 p = os.path.dirname(os.path.realpath(__file__))
 
@@ -21,7 +23,40 @@ def get_gemini_api_key():
     return api_key
 
 
+def process_gemini(encoded_image, prompt, config):
+    """处理图像并返回Gemini视觉模型的响应
+    
+    Args:
+        encoded_image: base64编码的图像
+        prompt: 提示词
+        config: 模型配置信息
+    
+    Returns:
+        str: 模型的响应文本
+    """
+    try:
+        # 配置API
+        genai.configure(api_key=config['api_key'])
+        
+        # 初始化模型
+        model = genai.GenerativeModel(config['model_list'][0])
+        
+        # 解码图像
+        image_data = base64.b64decode(encoded_image)
+        image = PIL.Image.open(BytesIO(image_data))
+        
+        # 生成响应
+        response = model.generate_content([prompt, image])
+        
+        # 返回结果
+        return response.text
+        
+    except Exception as e:
+        return f"Gemini处理出错: {str(e)}"
+
+
 class LLMs_Vison_Gemini:
+    """已废弃的Gemini视觉节点类，请使用新的统一视觉节点"""
 
     def __init__(self, api_key=None):
 

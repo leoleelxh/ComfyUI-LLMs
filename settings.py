@@ -1,27 +1,34 @@
 import os
 import pathlib
-
 import yaml
 
 DEFAULT_SETTINGS = {
-    "cyberdolphin": {
-        "openai": {
-            "organisation": "NO ORG",
-            "api_key": "NO API KEY",
-            "model": "gpt-3.5-turbo"
-        },
+    "chatllmleoleexh": {
         "openai_compatible": {
-            "organisation": "NO ORG",
-            "api_key": "your_key",
-            "api_base": 'http://ip:3200'
+            "default": {
+                "api_base": "http://url:3200/v1",
+                "organisation": "NONE",
+                "api_key": "sk-xxxxxxx",
+                "model": ["gpt-3.5-turbo"]
+            }
         },
-        "prompts": {
-            "example_user_prompt": "{Camel|goldfish|glowing orb},{moss|tree|fern|balloon},{space station|garden shed|glowing laser sword|bowl of petunias|orange taxi|neon sign}",
-            "default_prompt": {
-                "system": "You are deeply artistic, understanding of concepts like composition, pallete and color theory, and image psychology.",
-                "prefix": "Do use objective language. Do not add narrative. Do describe objects visually and in context. \
-                Do not describe the purpose of the objects, or any other explanations \"",
-                "suffix": '"'
+        "vision_models": {
+            "openai": {
+                "api_key": "sk-xxxxxxx",
+                "api_base": "http://url:3200/v1",
+                "model_list": ["gpt-4-vision-preview"]
+            },
+            "glm4": {
+                "api_key": "xxxxxx",
+                "model_list": ["glm-4v"]
+            },
+            "ali": {
+                "api_key": "sk-xxxxx",
+                "model_list": ["qwen-vl-plus"]
+            },
+            "gemini": {
+                "api_key": "AIxxxxxx",
+                "model_list": ["gemini-pro-vision"]
             }
         }
     }
@@ -29,17 +36,30 @@ DEFAULT_SETTINGS = {
 
 
 def load_settings():
+    """加载配置文件，如果文件不存在则返回默认配置"""
     path = os.path.join(os.path.dirname(__file__), "settings.yaml")
     file_path = pathlib.Path(path)
     if not file_path.exists():
-        return DEFAULT_SETTINGS['cyberdolphin']
+        return DEFAULT_SETTINGS['chatllmleoleexh']
 
-    with open(path) as settings:
+    with open(path, 'r', encoding='utf-8') as settings:
         the_yaml = yaml.safe_load(settings)
-    # print(f'LOADED: {the_yaml["cyberdolphin"]}')
-    return the_yaml['cyberdolphin']
+    return the_yaml['chatllmleoleexh']
 
 
-def api_settings(section: str = "openai"):
-    openai_settings = load_settings()['openai_compatible'][section]
-    return openai_settings['api_base'], openai_settings['api_key'], openai_settings['organisation']
+def get_chat_settings(section: str = "default"):
+    """获取聊天配置"""
+    settings = load_settings()
+    return settings['openai_compatible'][section]
+
+
+def get_vision_settings(model_type: str):
+    """获取视觉模型配置"""
+    settings = load_settings()
+    return settings['vision_models'].get(model_type)
+
+
+def api_settings(section: str = "default"):
+    """保持向后兼容的API设置获取函数"""
+    settings = get_chat_settings(section)
+    return settings['api_base'], settings['api_key'], settings['organisation']
