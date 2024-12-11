@@ -1,5 +1,158 @@
 # ComfyUI LLMs Extension
 
+A ComfyUI extension that supports various Large Language Models (LLMs) and Vision Language Models (VLMs), providing a unified interface and simple configuration.
+
+[English](#english) | [中文](#chinese)
+
+<a name="english"></a>
+## ✨ Features
+
+- 🤖 Support for multiple LLM chat models
+- 🎯 Unified vision model interface with multiple VLM support
+- 🔄 Dynamic model switching
+- 🌐 Bilingual interface (English/Chinese)
+- ⚙️ Simple configuration
+
+## 📦 Installation
+
+1. Navigate to ComfyUI's custom_nodes directory
+```bash
+cd ComfyUI/custom_nodes
+```
+
+2. Clone the repository
+```bash
+git clone https://github.com/leoleexh/ComfyUI-LLMs
+```
+
+3. Install dependencies
+```bash
+cd ComfyUI-LLMs
+pip install -r requirements.txt
+```
+
+## ⚙️ Configuration
+
+### Basic Setup
+
+1. Copy the configuration template
+```bash
+cp settings.yaml.sample settings.yaml
+```
+
+2. Edit `settings.yaml` to configure your API keys and model settings
+
+### Detailed Configuration
+
+The configuration file structure is as follows:
+
+```yaml
+chatllmleoleexh:
+  # OpenAI Compatible Interface Configuration
+  openai_compatible:
+    default:
+      api_base: "http://your-api-endpoint:3200/v1"  # API endpoint
+      organisation: "NONE"                          # Organization ID (optional)
+      api_key: "your-api-key"                      # API key
+      model:                                       # Supported models
+        - "gpt-3.5-turbo"
+        - "gpt-4"
+        # Other supported models...
+
+  # Vision Models Configuration
+  vision_models:
+    # OpenAI Vision Model
+    openai:
+      api_key: "your-openai-key"
+      api_base: "http://your-api-endpoint:3200/v1"
+      model_list:
+        - "gpt-4-vision-preview"
+    
+    # Zhipu GLM4 Vision Model
+    glm4:
+      api_key: "your-glm4-key"
+      model_list: 
+        - "glm-4v"
+        - "glm-4"
+    
+    # Alibaba Qwen Vision Model
+    ali:
+      api_key: "your-ali-key"
+      model_list:
+        - "qwen-vl-plus"
+        - "qwen-vl-max"
+    
+    # Google Gemini Vision Model
+    gemini:
+      api_key: "your-gemini-key"
+      model_list:
+        - "gemini-pro-vision"
+
+  # Prompt Templates Configuration
+  prompt_templates:
+    default:
+      system: "System prompt"
+      prefix: "Prefix prompt"
+      suffix: "Suffix prompt"
+```
+
+### Model Support
+
+1. **OpenAI and Compatible Models**
+   - Standard OpenAI API support
+   - Third-party compatible interfaces (e.g., One API)
+   - Multiple models and endpoints configuration
+
+2. **Vision Model Support**
+   - OpenAI GPT-4V
+   - Zhipu GLM-4V
+   - Alibaba Qwen VL
+   - Google Gemini
+
+### API Key Acquisition
+
+- OpenAI: https://platform.openai.com/
+- Zhipu GLM: https://open.bigmodel.cn/
+- Alibaba Qwen: https://dashscope.aliyun.com/
+- Google Gemini: https://makersuite.google.com/
+
+## 🎯 Usage
+
+### Chat Function
+1. Find `🤖 LLMs Chat` in the node list
+2. Configure model parameters
+3. Input conversation content
+
+### Image Understanding
+1. Find `🎯 LLMs Vision` in the node list
+2. Select the vision model to use
+3. Connect image input
+4. Run to get image description
+
+## 🔄 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md)
+
+## 📝 Notes
+
+- Ensure API keys are configured correctly
+- Some models may require proxy access
+- Stable network connection recommended
+- Be aware of API rate limits
+
+## 🤝 Contributing
+
+Issues and Pull Requests are welcome!
+
+## 📄 License
+
+MIT License
+
+---
+
+<a name="chinese"></a>
+# ComfyUI LLMs 扩展
+
 ComfyUI的LLM扩展，支持多种大语言模型和视觉语言模型，提供统一的接口和简单的配置方式。
 
 ## ✨ 功能特点
