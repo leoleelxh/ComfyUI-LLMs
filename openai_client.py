@@ -1,14 +1,11 @@
 from typing import Literal, TypeAlias
-
 import PIL.Image
 from openai import OpenAI
-
-# from custom_nodes.ComfyUI-LLMs.settings import api_settings
-from .comfyui_llms_wrapper import api_settings
+from .settings import get_chat_settings
 
 
 DALL_E_SIZE: TypeAlias = Literal["256x256",
-                                 "512x512", "1024x1024", "1792x1024", "1024x1792"]
+                                "512x512", "1024x1024", "1792x1024", "1024x1792"]
 
 
 def validation(temperature: float, top_p: float = None) -> list[str]:
@@ -38,12 +35,12 @@ def convert_bson_to_image(image_bson: str) -> PIL.Image.Image:
 class OpenAiClient:
 
     @staticmethod
-    def create_client(key: str = "openai"):
-        api_base, api_key, organization = api_settings(key)
+    def create_client(key: str = "default"):
+        settings = get_chat_settings(key)
         the_client = OpenAI(
-            base_url=api_base,
-            api_key=api_key,
-            organization=organization,
+            base_url=settings['api_base'],
+            api_key=settings['api_key'],
+            organization=settings['organisation'],
         )
         return the_client
 

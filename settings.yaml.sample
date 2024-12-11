@@ -1,16 +1,15 @@
 chatllmleoleexh:
   openai_compatible:
     default:
-      api_base: "http://192.168.1.32:3200/v1"
+      api_base: "http://url:3200/v1"
       organisation: "NONE"
-      api_key: "sk-JgkyVZclOV5e548A635c3bDbDfF34eCb863d1a446f312128"
+      api_key: "sk-xxxxxxx"
       model: 
+        - "your_model_here"
         - "glm-4"
         - "chatglm_pro"
         - "ERNIE-Bot-4"
         - "qwen-turbo-internet"
-        - "gpt-4o"
-        - "gpt-4o-2024-05-13"
         - "gpt-3.5-turbo"
         - "gpt-3.5-turbo-16k"
         - "gpt-3.5-turbo-16k-0613"
@@ -20,30 +19,27 @@ chatllmleoleexh:
   # 统一的视觉模型配置
   vision_models:
     openai:
-      api_key: "sk-JgkyVZclOV5e548A635c3bDbDfF34eCb863d1a446f312128"
-      api_base: "http://192.168.1.32:3200/v1"
+      api_key: "sk-xxxxxxx"
+      api_base: "http://url:3200/v1"
       model_list:
-        - "gpt-4o"
+        - "gpt-4-vision-preview"
     
     glm4:
-      api_key: "9d517dcefafcfc899833870309c4d678.wsWu0b3RWRBmV0VX"
+      api_key: "xxxxxx"
       model_list: 
         - "glm-4v"
         - "glm-4"
     
     ali:
-      api_key: "sk-c19ae1e0f4674648af76b35278aab594"
+      api_key: "sk-xxxxx"
       model_list:
         - "qwen-vl-plus"
         - "qwen-vl-max"
     
     gemini:
-      api_key: "AIzaSyBGZRWWQkqie0QSyyQ1wuAXry9TZZYB8ws"
+      api_key: "AIxxxxxx"
       model_list:
-        - "gemini-1.5-flash-latest"
-        - "gemini-1.5-flash-002"
-        - "gemini-1.5-pro-latest"
-        - "gemini-1.5-pro-002"
+        - "gemini-pro-vision"
 
   # Prompt模板配置
   example_user_prompt: "your user prompt here"
@@ -84,3 +80,4 @@ chatllmleoleexh:
         " - there are many things
         and you must list them using a maximum of 25 words. be clear and specific.
         use present tense, objective language: do not say, "I see ..." rather say, "there is ..."
+    
